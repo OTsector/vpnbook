@@ -15,7 +15,6 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 banner="\t\t\t${red}VPNBOOK${reset}${grey} - VPNBOOK Connecter v1.1.2${reset}\n ${ear}^${reset}${eye}>${reset}${mouth}_${reset}${eye}<${reset}${ear}^${reset}\t\t ${bold}${t}_${reset}\n\t${bold}${o}0${reset}${normal}${bold}${t}7${reset}${normal}\t${o}[${reset}${t}|${reset}${o}]${reset}${normal} ${bold}${o}0${reset}${normal}${otext}ffensive${reset} ${bold}${t}7${reset}${normal}${ttext}ester${reset}\n"
 echo -e ${banner}
-### Welcome text
 
 if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root" 
