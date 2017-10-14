@@ -23,8 +23,11 @@ if [[ $EUID -ne 0 ]]; then
 fi
 ### Check addons
 rm -rf data.txt
-if ! [ -f /usr/bin/openvpn ]; then
+if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && ! [ -f /usr/bin/sed ]; then
 	apt-get install openvpn -y
+	apt-get install curl -y
+	apt-get install grep -y
+	apt-get install sed -y
 	exit 1
 fi
 
