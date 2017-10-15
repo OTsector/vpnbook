@@ -2,7 +2,6 @@
 ### Welcome text
 clear
 red=`tput setaf 1`
-green=`tput setaf 2`
 grey=`tput setaf 8`
 o=`tput setaf 65`
 otext=`tput setaf 66`
@@ -31,8 +30,7 @@ if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && 
 	exit 1
 fi
 ### Check addons
-	echo -e "starting ${green}${bold}VPN${normal}${reset} service"
 	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/ | echo $(grep "<li><strong>Password: " | head -1 )) | tr -d "<li><strong>Password: //"))"\n" > data.txt
 	sed -i '$ d' data.txt
-	openvpn /opt/vpnbook/vpnbook-de233-tcp80.ovpn &>/dev/null
+	openvpn vpnbook-de233-tcp80.ovpn &>/dev/null
 exit 0
