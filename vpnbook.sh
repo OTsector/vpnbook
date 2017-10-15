@@ -31,7 +31,7 @@ if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && 
 fi
 
 
-	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/#openvpn | echo $(grep "<li><strong>Password: " | head -1 )) | tr -d "<li><strong>Password: //"))"\n" > data.txt
+	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/ | echo $(grep "<li><strong>Password: " | head -1 )) | tr -d "<li><strong>Password: //"))"\n" > data.txt
 	sed -i '$ d' data.txt
 	openvpn vpnbook-de233-tcp80.ovpn &>/dev/null
 
