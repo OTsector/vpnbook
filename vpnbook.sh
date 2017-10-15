@@ -32,5 +32,5 @@ fi
 ### Check addons
 	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/ | echo $(grep "<li><strong>Password: " | head -1 )) | tr -d "<li><strong>Password: //"))"\n" > data.txt
 	sed -i '$ d' data.txt
-	openvpn vpnbook-de233-tcp80.ovpn &>/dev/null
+	openvpn /opt/vpnbook/vpnbook-de233-tcp80.ovpn &>/dev/null
 exit 0
