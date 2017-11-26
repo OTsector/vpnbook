@@ -8,13 +8,10 @@ o=`tput setaf 65`
 otext=`tput setaf 66`
 t=`tput setaf 62`
 ttext=`tput setaf 61`
-ear=`tput setaf 8`
-eye=`tput setaf 65`
-mouth=`tput setaf 132`
 reset=`tput sgr0`
 bold=$(tput bold)
 normal=$(tput sgr0)
-banner="\t\t\t${red}VPNBOOK${reset}${grey} - VPNBOOK Client v1.1.2${reset}\n ${ear}^${reset}${eye}>${reset}${mouth}_${reset}${eye}<${reset}${ear}^${reset}\t\t ${bold}${t}_${reset}\n\t${bold}${o}0${reset}${normal}${bold}${t}7${reset}${normal}\t${o}[${reset}${t}|${reset}${o}]${reset}${normal} ${bold}${o}0${reset}${normal}${otext}ffensive${reset} ${bold}${t}7${reset}${normal}${ttext}ester${reset}\n"
+banner=" \t\t ${bold}${t}_${reset}\n\t${bold}${o}0${reset}${normal}${bold}${t}7${reset}${normal}\t${o}[${reset}${t}|${reset}${o}]${reset}${normal} ${bold}${o}0${reset}${normal}${otext}ffensive${reset} ${bold}${t}7${reset}${normal}${ttext}ester${reset}\n\n\t# ${red}VPNBOOK${reset}${grey} - VPNBOOK Client v1.5.2${reset}\n"
 echo -e ${banner}
 ### Welcome text
 if [[ $EUID -ne 0 ]]; then
@@ -22,7 +19,7 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 ### Check addons
-rm -rf data.txt
+rm -rf temp && mkdir temp
 if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && ! [ -f /usr/bin/sed ]; then
 	apt-get install openvpn -y
 	apt-get install curl -y
@@ -32,7 +29,10 @@ if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && 
 fi
 ### Check addons
 	echo "Starting ${green}${bold}VPN${normal}${reset} service..."
-	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/ | echo $(grep "<li><strong>Password: " | head -1 )) | tr -d "<li><strong>Password: //"))"\n" > data.txt
-	sed -i '$ d' data.txt
-	openvpn vpnbook-de233-tcp80.ovpn &>/dev/null
-exit 0
+	wget https://www.vpnbook.com/free-openvpn-account/VPNBook.com-OpenVPN-Euro1.zip -q -O $PWD/temp/euro1.zip &>/dev/null
+	unzip -o $PWD/temp/euro1.zip -d $PWD/temp/ &>/dev/null
+	echo -e "vpnbook\n"$( echo $(echo $(curl -s https://www.vpnbook.com/ | echo $(grep "<li><strong>Password: " | head -1 )) | sed 's/<li><strong>Password: //g' | sed -e 's/<\/strong><\/li>//g'))"\n" > $PWD/temp/data.txt
+	sed -i '$ d' $PWD/temp/data.txt
+	echo -e "\nCTRL+C ${red}to exit${reset}"
+	openvpn --config $PWD/temp/*53.ovpn --auth-user-pass $PWD/temp/data.txt &>/dev/null
+exit 1 | clear && echo -e "${banner}\n${red}Disconnected${reset}"
