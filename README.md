@@ -1,4 +1,5 @@
 # VPNBOOK Client
+# Old version !!! -wait next update
 ## How to install:
 	git clone https://github.com/OTsector/vpnbook.git /opt/vpnbook
 	cd /opt/vpnbook
