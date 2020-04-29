@@ -20,11 +20,11 @@ if [[ $EUID -ne 0 ]]; then
 fi
 ### Check addons
 rm -rf temp && mkdir temp
-if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && ! [ -f /usr/bin/sed ]; then
+if ! [ -d /etc/openvpn ] && ! [ -f /usr/bin/curl ] && ! [ -f /usr/bin/grep ] && ! [ -f /usr/bin/gocr ]; then
 	apt-get install openvpn -y
 	apt-get install curl -y
 	apt-get install grep -y
-	apt-get install sed -y
+	apt-get install gocr -y
 	exit 1
 fi
 ### Check addons
